@@ -1,0 +1,35 @@
+<html>
+<head>
+  <link rel='stylesheet' href='build/build.css' />
+</head>
+<body>
+  <p> hello. click the button for a sample </p>
+  <button id='success'>button</button>
+  <script src='build/build.js'></script>
+  <script>
+    var notify = require('notification')
+      , error = new notify({
+        title: 'Error',
+        content: 'Sorry, there was an error.'
+      })
+
+    var button = document.getElementById('success');
+    button.onclick = function(e){
+      new notify({
+        title: 'Success',
+        content: 'You clicked the button! Good job.',
+        date: 'oct 8 2012'
+      }, {
+        template: 'notify-template'
+      });
+    }
+
+  </script>
+
+  <script type='text/template' id='notify-template'>
+    <h4><%= title %></h4>
+    <p><%= content %></p>
+    <p><%= date %></p>
+  </script>
+</body>
+</html>

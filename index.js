@@ -6,19 +6,23 @@
  * 
  */
 
+var _ = require('underscore');
+
+var list; 
 
 // Append UL to Body on load
 var buildList = function(){
-    var list = document.createElement("ul");
+    list = document.createElement("ul");
     list.id = 'notifications';
     document.getElementsByTagName('body')[0].appendChild(list);
 }
 
 // Constructor accepts attributes and options
-exports.Notification = Notification = function(attributes, options) {
+var notification = module.exports = function(attributes, options) {
 
-    if (typeof list === 'undefined')
+    if (typeof list === 'undefined') {
         buildList(); 
+    }
 
     this.el = document.createElement('li');
 
@@ -36,7 +40,7 @@ exports.Notification = Notification = function(attributes, options) {
 
 };
 
-_.extend(Notification.prototype, {
+_.extend(notification.prototype, {
 
     // Renders template with attributes
     render: function(attributes, options) {
