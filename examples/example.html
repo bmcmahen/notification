@@ -7,26 +7,48 @@
   <button id='success'>button</button>
   <script src='../build/build.js'></script>
   <script>
+
     var notify = require('notification')
       , error = new notify({
         title: 'Error',
         content: 'Sorry, there was an error.'
-      })
+      });
 
     var button = document.getElementById('success');
+
+    var temp = function anonymous(obj) {
+
+      function escape(html) {
+        return String(html)
+          .replace(/&/g, '&amp;')
+          .replace(/"/g, '&quot;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+      };
+
+      function section(obj, prop, negate, str) {
+        var val = obj[prop];
+        if ('function' == typeof val) return val.call(obj, str);
+        if (negate) val = !val;
+        if (val) return str;
+        return '';
+      };
+
+      return "<div class='content'>\n <span class='title'>" + escape(obj.title) + "</span>\n  <p>" + escape(obj.content) + "</p>\n  <p>" + escape(obj.custom) + "</p>\n</div>"
+  }
+
+
     button.onclick = function(e){
       new notify({
         title: 'Success',
-        content: 'You clicked the button! Good job.'
+        content: 'You clicked the button! Good job.',
+        custom: 'custom'
+      }, {
+        template: temp
       });
     }
 
   </script>
 
-  <script type='text/template' id='notify-template'>
-    <h4><%= title %></h4>
-    <p><%= content %></p>
-    <p><%= date %></p>
-  </script>
 </body>
 </html>
