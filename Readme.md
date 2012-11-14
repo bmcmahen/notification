@@ -7,8 +7,9 @@
 
     $ component install bmcmahen/notification
 
-## API
+## Use
   
+  ```javascript
   // expose the notify variable
   var notify = require('notification');
 
@@ -34,6 +35,7 @@
     <p><%= content %></p>
     <p><%= date %></p>
   </script>
+  ```
 
    
 
