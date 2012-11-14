@@ -9,7 +9,7 @@
   <script>
 
     var notify = require('notification')
-      , error = new notify({
+      , error = notify({
         title: 'Error',
         content: 'Sorry, there was an error.'
       });
@@ -39,7 +39,7 @@
 
 
     button.onclick = function(e){
-      new notify({
+      notify({
         title: 'Success',
         content: 'You clicked the button! Good job.',
         custom: 'custom'

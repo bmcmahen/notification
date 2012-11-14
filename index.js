@@ -7,27 +7,31 @@
 
 // Append UL to Body on load
 var list = document.createElement("ul");
-
 list.id = 'notifications';
 document.querySelector('body').appendChild(list)
 
-// Constructor accepts attributes and options
-var Notification = module.exports = function(attributes, options) {
+// API
 
-    attributes || (attributes = {});
-    this.attributes = attributes; 
+module.exports = function(attributes, options){
+    return new Notification(attributes, options).show()
+}
+
+// Constructor accepts attributes and options
+var Notification = function(attributes, options) {
+
+    this.attributes = attributes || {};
 
     options || (options = {});
-    this.hide = options.hide || 5000; 
+    this.duration = options.duration || 5000; 
     this.template = options.template || require('./template');
-
-    this.show(attributes, options);
 
 };
 
 Notification.prototype =  {
     
-    show: function(attributes, options) {
+    show: function() {
+
+    	console.log(this);
 
         var self = this
         ,   li = self.el = document.createElement('li')
@@ -38,19 +42,20 @@ Notification.prototype =  {
         
         // Cant append string so we need to create an <li> and append that
         list.appendChild(li);
-      
-        self.setTimer(); 
+        self.hide(); 
+        return this; 
     },
 
     // Removes element after timer expires.
-    setTimer : function() {
+    hide : function() {
 
         var self = this; 
         clearTimeout(this.timer);
         this.timer = setTimeout(function(){
             self.remove(); 
-        }, self.hide);
+        }, self.duration);
 
+        return this; 
     },
 
     // Remove element.
@@ -61,6 +66,8 @@ Notification.prototype =  {
         setTimeout(function(){
              self.el.parentNode.removeChild(self.el);
         }, 400);
+
+        return this; 
 
     }
 }; 
