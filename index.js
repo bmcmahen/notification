@@ -73,7 +73,7 @@ _.extend(notification.prototype, {
         self.el.className += ' hide';
         setTimeout(function(){
              self.el.parentNode.removeChild(self.el);
-        }, 800);
+        }, 400);
 
     }
 });
