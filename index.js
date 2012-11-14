@@ -19,6 +19,7 @@ var Notification = module.exports = function(attributes, options) {
 
     options || (options = {});
     this.hide = options.hide || 5000; 
+    this.template = options.template || require('./template');
 
     this.show(attributes, options);
 
@@ -29,16 +30,14 @@ Notification.prototype =  {
     show: function(attributes, options) {
 
         var self = this
-        ,   el = self.el = document.createElement('li');
+        ,   li = self.el = document.createElement('li')
+        ,   html = self.template(self.attributes);
 
-        el.innerHTML = require('./template');
-        el.className = 'notification';
-
-        // textContent would be better, but IE 8 doesnt support it.
-        el.querySelector('span').innerHTML = self.attributes.title; 
-        el.querySelector('p').innerHTML = self.attributes.content; 
+        li.className = 'notification';
+        li.innerHTML = html;
         
-        list.appendChild(el);
+        // Cant append string so we need to create an <li> and append that
+        list.appendChild(li);
       
         self.setTimer(); 
     },

@@ -22,7 +22,19 @@
     content: 'You entered an invalid password',
   }, {
     hide: 6000
-  })
+  });
+
+  // You can pass in your own compiled template function
+
+  var template = // Your template function here. 
+  new notify({
+	  title: 'Success',
+	  content: 'It worked!',
+	  custom: 'custom1'
+	}, {
+		hide: 3000,
+		template: template
+	});
 
   ```
 
