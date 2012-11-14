@@ -1,30 +1,18 @@
 /**
  * Notification Module
  *
- * Growl like notifications.
- * Dependencies: Underscore
+ * REALLY basic growl-like notificaitons. 
  * 
  */
 
-var _ = require('underscore');
-
-var list; 
-
 // Append UL to Body on load
-var buildList = function(){
-    list = document.createElement("ul");
-    list.id = 'notifications';
-    document.getElementsByTagName('body')[0].appendChild(list);
-}
+var list = document.createElement("ul");
+
+list.id = 'notifications';
+document.querySelector('body').appendChild(list)
 
 // Constructor accepts attributes and options
-var notification = module.exports = function(attributes, options) {
-
-    if (typeof list === 'undefined') {
-        buildList(); 
-    }
-
-    this.el = document.createElement('li');
+var Notification = module.exports = function(attributes, options) {
 
     attributes || (attributes = {});
     this.attributes = attributes; 
@@ -32,25 +20,25 @@ var notification = module.exports = function(attributes, options) {
     options || (options = {});
     this.hide = options.hide || 5000; 
 
-    this.template = options.template ?
-        _.template(document.getElementById(options.template).innerHTML) :
-        _.template('<h1><%= title %></h1><p><%= content %></p>');
-
-    this.render(attributes, options);
+    this.show(attributes, options);
 
 };
 
-_.extend(notification.prototype, {
-
-    // Renders template with attributes
-    render: function(attributes, options) {
+Notification.prototype =  {
+    
+    show: function(attributes, options) {
 
         var self = this
-        ,   html = self.template(attributes);
+        ,   el = self.el = document.createElement('li');
+
+        el.innerHTML = require('./template');
+        el.className = 'notification';
+
+        // textContent would be better, but IE 8 doesnt support it.
+        el.querySelector('span').innerHTML = self.attributes.title; 
+        el.querySelector('p').innerHTML = self.attributes.content; 
         
-        self.el.innerHTML = html;
-        list.appendChild(self.el);
-        self.el.className = 'notification';
+        list.appendChild(el);
       
         self.setTimer(); 
     },
@@ -76,4 +64,4 @@ _.extend(notification.prototype, {
         }, 400);
 
     }
-});
+}; 

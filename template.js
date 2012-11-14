@@ -1,0 +1,1 @@
+module.exports = '<div class=\'content\'>\n	<span class=\'title\'>Title</span>\n	<p>Content</p>\n</div>';

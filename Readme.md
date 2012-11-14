@@ -1,7 +1,7 @@
 
 # notification
 
-  Very simple notification tool, built using underscore templates. Other than underscore, it's vanilla javascript.
+  VERY simple, small notifications module all in vanilla JS. Should work in IE 8+.
 
 ## Installation
 
@@ -20,21 +20,10 @@
   new notify({
     title: 'Error',
     content: 'You entered an invalid password',
-    custom_attirbute: 'A custom attribute',
-    another: 'Another attribute'
   }, {
-    hide: 6000,
-    template: 'mytemplate' // the id of your template
+    hide: 6000
   })
 
-  // You can pass in a custom underscore templates by including
-  // a template in your html
-
-  <script type='text/template' id='mytemplate'>
-    <h4><%= title %></h4>
-    <p><%= content %></p>
-    <p><%= date %></p>
-  </script>
   ```
 
    
