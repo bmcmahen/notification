@@ -8,7 +8,10 @@
 // Append UL to Body on load
 var list = document.createElement("ul");
 list.id = 'notifications';
-document.querySelector('body').appendChild(list)
+
+window.onload = function(){
+	document.querySelector('body').appendChild(list);	
+}
 
 // API
 
