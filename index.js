@@ -31,8 +31,6 @@ Notification.prototype =  {
     
     show: function() {
 
-    	console.log(this);
-
         var self = this
         ,   li = self.el = document.createElement('li')
         ,   html = self.template(self.attributes);
